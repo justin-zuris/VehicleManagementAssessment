@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniFirst.VehicleManagement.DataAccess;
 using UniFirst.VehicleManagement.Model;
 
@@ -13,7 +11,7 @@ namespace UniFirst.VehicleManagement
     {
         private readonly IVehicleDAO _dao;
 
-        public VehicleService(IVehicleDAO dao) 
+        public VehicleService(IVehicleDAO dao)
         {
             _dao = dao;
         }
@@ -28,7 +26,6 @@ namespace UniFirst.VehicleManagement
             return _dao.Vehicles.FirstOrDefault(l => l.VIN == vin);
         }
 
-
         public void RegisterLocation(Location location)
         {
             _dao.AddLocation(location);
@@ -37,7 +34,7 @@ namespace UniFirst.VehicleManagement
         public void RegisterVehicle(Vehicle vehicle, Location initialLocation)
         {
             var results = new List<ValidationResult>();
-            if (Validator.TryValidateObject(vehicle, new ValidationContext(vehicle), results, validateAllProperties:true))
+            if (Validator.TryValidateObject(vehicle, new ValidationContext(vehicle), results, validateAllProperties: true))
             {
                 // add the vehicle to the data repository
                 _dao.AddVehicle(vehicle);
@@ -49,7 +46,7 @@ namespace UniFirst.VehicleManagement
                     results
                         .Where(r => r != ValidationResult.Success)
                         .Select(r => r.ErrorMessage ?? "Error")
-                        .Aggregate((i,j) => i + Environment.NewLine+j));
+                        .Aggregate((i, j) => i + Environment.NewLine + j));
             }
         }
 
@@ -57,7 +54,7 @@ namespace UniFirst.VehicleManagement
         {
             var currentLocation = vehicle.CurrentLocation;
             var transferFailureFlags = VehicleTransferFailureReasonFlags.None;
-            
+
             if (currentLocation != null && currentLocation == targetLocation)
             {
                 transferFailureFlags |= VehicleTransferFailureReasonFlags.VehiclesCannotTransferToSameLocation;
@@ -85,7 +82,6 @@ namespace UniFirst.VehicleManagement
                     targetLocation.Vehicles.Add(vehicle);
                 }
                 vehicle.CurrentLocation = targetLocation;
-
             }
             else
             {

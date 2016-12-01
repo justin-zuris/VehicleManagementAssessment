@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UniFirst.VehicleManagement
 {
@@ -27,6 +25,7 @@ namespace UniFirst.VehicleManagement
                 }
             }
         }
+
         public static string GetEnumDescription<T>(this T source)
         {
             FieldInfo fi = source.GetType().GetField(source.ToString());

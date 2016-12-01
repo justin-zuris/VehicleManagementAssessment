@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.ComponentModel.DataAnnotations;
 using UniFirst.VehicleManagement.DataAccess;
 using UniFirst.VehicleManagement.Model;
-using System.ComponentModel.DataAnnotations;
 
 namespace UniFirst.VehicleManagement.UnitTests
 {
@@ -229,6 +228,7 @@ namespace UniFirst.VehicleManagement.UnitTests
                 Assert.AreEqual("The target location must be different than the current location.", ex.Message);
             }
         }
+
         [TestMethod]
         public void TestNonStandByAndSemiTransferFailure()
         {
@@ -257,7 +257,7 @@ namespace UniFirst.VehicleManagement.UnitTests
             }
             catch (VehicleTransferException ex)
             {
-                Assert.AreEqual(ex.FailureReasonFlags, 
+                Assert.AreEqual(ex.FailureReasonFlags,
                     (VehicleTransferFailureReasonFlags.SemiCannotTransferToBranches | VehicleTransferFailureReasonFlags.VehiclesCannotTransferUnlessOnStandBy));
             }
         }
@@ -310,7 +310,6 @@ namespace UniFirst.VehicleManagement.UnitTests
                     Name = "Distribution Center 002",
                     Type = LocationType.DistributionCenter
                 });
-
         }
     }
 }
